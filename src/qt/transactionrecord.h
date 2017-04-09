@@ -68,12 +68,11 @@ public:
         SendToOther,
         RecvWithAddress,
         RecvFromOther,
-        SendToSelf,
-        StakeMint
+        SendToSelf
     };
 
     /** Number of confirmation needed for transaction */
-    static const int NumConfirmations = 3;
+    static const int NumConfirmations = 4;
 
     TransactionRecord():
             hash(), time(0), type(Other), address(""), debit(0), credit(0), idx(0)

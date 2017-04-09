@@ -45,7 +45,6 @@ void OptionsModel::Init()
     bDisplayAddresses = settings.value("bDisplayAddresses", false).toBool();
     fMinimizeToTray = settings.value("fMinimizeToTray", false).toBool();
     fMinimizeOnClose = settings.value("fMinimizeOnClose", false).toBool();
-	fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
     language = settings.value("language", "").toString();
 
@@ -146,18 +145,18 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         case ProxyUse:
             return settings.value("fUseProxy", false);
         case ProxyIP: {
-            proxyType proxy;
-            if (GetProxy(NET_IPV4, proxy))
-                return QVariant(QString::fromStdString(proxy.first.ToStringIP()));
+            CService addrProxy;
+            if (GetProxy(NET_IPV4, addrProxy))
+                return QVariant(QString::fromStdString(addrProxy.ToStringIP()));
             else
                 return QVariant(QString::fromStdString("127.0.0.1"));
         }
         case ProxyPort: {
-            proxyType proxy;
-            if (GetProxy(NET_IPV4, proxy))
-                return QVariant(proxy.first.GetPort());
+            CService addrProxy;
+            if (GetProxy(NET_IPV4, addrProxy))
+                return QVariant(addrProxy.GetPort());
             else
-                return QVariant(9050);
+                return 9050;
         }
         case ProxySocksVersion:
             return settings.value("nSocksVersion", 5);
@@ -171,16 +170,12 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return QVariant(bitdb.GetDetach());
         case Language:
             return settings.value("language", "");
-		case CoinControlFeatures:
-            return QVariant(fCoinControlFeatures);
-
         default:
             return QVariant();
         }
     }
     return QVariant();
 }
-
 bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
     bool successful = true; /* set to false on parse error */
@@ -209,41 +204,32 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             settings.setValue("fUseProxy", value.toBool());
             ApplyProxySettings();
             break;
-        case ProxyIP: {
-            proxyType proxy;
-            proxy.first = CService("127.0.0.1", 9050);
-            GetProxy(NET_IPV4, proxy);
-
-            CNetAddr addr(value.toString().toStdString());
-            proxy.first.SetIP(addr);
-            settings.setValue("addrProxy", proxy.first.ToStringIPPort().c_str());
-            successful = ApplyProxySettings();
-        }
-        break;
-        case ProxyPort: {
-            proxyType proxy;
-            proxy.first = CService("127.0.0.1", 9050);
-            GetProxy(NET_IPV4, proxy);
-
-            proxy.first.SetPort(value.toInt());
-            settings.setValue("addrProxy", proxy.first.ToStringIPPort().c_str());
-            successful = ApplyProxySettings();
-        }
-        break;
-        case ProxySocksVersion: {
-            proxyType proxy;
-            proxy.second = 5;
-            GetProxy(NET_IPV4, proxy);
-
-            proxy.second = value.toInt();
-            settings.setValue("nSocksVersion", proxy.second);
-            successful = ApplyProxySettings();
-        }
-        break;
+        case ProxyIP:
+            {
+                CService addrProxy("127.0.0.1", 9050);
+                GetProxy(NET_IPV4, addrProxy);
+                CNetAddr addr(value.toString().toStdString());
+                addrProxy.SetIP(addr);
+                settings.setValue("addrProxy", addrProxy.ToStringIPPort().c_str());
+                successful = ApplyProxySettings();
+            }
+            break;
+        case ProxyPort:
+            {
+                CService addrProxy("127.0.0.1", 9050);
+                GetProxy(NET_IPV4, addrProxy);
+                addrProxy.SetPort(value.toInt());
+                settings.setValue("addrProxy", addrProxy.ToStringIPPort().c_str());
+                successful = ApplyProxySettings();
+            }
+            break;
+        case ProxySocksVersion:
+            settings.setValue("nSocksVersion", value.toInt());
+            ApplyProxySettings();
+            break;
         case Fee:
             nTransactionFee = value.toLongLong();
             settings.setValue("nTransactionFee", nTransactionFee);
-			emit transactionFeeChanged(nTransactionFee);
             break;
         case DisplayUnit:
             nDisplayUnit = value.toInt();
@@ -263,12 +249,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
         case Language:
             settings.setValue("language", value);
             break;
-		case CoinControlFeatures: {
-            fCoinControlFeatures = value.toBool();
-            settings.setValue("fCoinControlFeatures", fCoinControlFeatures);
-            emit coinControlFeaturesChanged(fCoinControlFeatures);
-            }
-            break;
         default:
             break;
         }
@@ -281,11 +261,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
 qint64 OptionsModel::getTransactionFee()
 {
     return nTransactionFee;
-}
-
-bool OptionsModel::getCoinControlFeatures()
-{
-     return fCoinControlFeatures;
 }
 
 bool OptionsModel::getMinimizeToTray()

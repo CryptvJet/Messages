@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>PopularCoin - Debug Window</string>
+   <string>ButterflyBits - Debug window</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -36,14 +36,14 @@
           </font>
          </property>
          <property name="text">
-          <string>PopularCoin Core</string>
+          <string>Bitcoin Core</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Client Name -^.^-</string>
+          <string>Client name</string>
          </property>
         </widget>
        </item>
@@ -66,7 +66,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Client Version</string>
+          <string>Client version</string>
          </property>
         </widget>
        </item>
@@ -89,7 +89,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>Using OpenSSL Version</string>
+          <string>Using OpenSSL version</string>
          </property>
          <property name="indent">
           <number>10</number>
@@ -115,7 +115,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
-          <string>Build Date</string>
+          <string>Build date</string>
          </property>
         </widget>
        </item>
@@ -138,7 +138,7 @@
        <item row="5" column="0">
         <widget class="QLabel" name="label_13">
          <property name="text">
-          <string>Startup Time</string>
+          <string>Startup time</string>
          </property>
         </widget>
        </item>
@@ -174,7 +174,7 @@
        <item row="7" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Number of Connections</string>
+          <string>Number of connections</string>
          </property>
         </widget>
        </item>
@@ -197,7 +197,7 @@
        <item row="8" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>On Testnet</string>
+          <string>On testnet</string>
          </property>
         </widget>
        </item>
@@ -220,14 +220,14 @@
           </font>
          </property>
          <property name="text">
-          <string>Block Chain</string>
+          <string>Block chain</string>
          </property>
         </widget>
        </item>
        <item row="10" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Current Number of Blocks</string>
+          <string>Current number of blocks</string>
          </property>
         </widget>
        </item>
@@ -250,7 +250,7 @@
        <item row="11" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Estimated Total Blocks</string>
+          <string>Estimated total blocks</string>
          </property>
         </widget>
        </item>
@@ -273,7 +273,7 @@
        <item row="12" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Last Block Time</string>
+          <string>Last block time</string>
          </property>
         </widget>
        </item>
@@ -315,14 +315,14 @@
           </font>
          </property>
          <property name="text">
-          <string>Debug log file</string>
+          <string>Debug logfile</string>
          </property>
         </widget>
        </item>
        <item row="15" column="0">
         <widget class="QPushButton" name="openDebugLogfileButton">
          <property name="toolTip">
-          <string>Open the PopularCoin debug log file from the current data directory. This can take a few seconds for large log files.</string>
+          <string>Open the ButterflyBits debug logfile from the current data directory. This can take a few seconds for large logfiles.</string>
          </property>
          <property name="text">
           <string>&amp;Open</string>
@@ -348,10 +348,13 @@
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the PopularCoin-Qt help message to get a list with possible PopularCoin command-line options.</string>
+          <string>Show the ButterflyBits-Qt help message to get a list with possible ButterflyBits command-line options.</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

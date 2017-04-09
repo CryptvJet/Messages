@@ -24,11 +24,11 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
 
 #if (QT_VERSION >= 0x040700)
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    ui->addressIn_SM->setPlaceholderText(tr("Enter a valid PopularCoin address (e.g. PeM4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)"));
+    ui->addressIn_SM->setPlaceholderText(tr("Enter a ButterflyBits address"));
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 
-    ui->addressIn_VM->setPlaceholderText(tr("Enter a valid PopularCoin address (e.g. PeM4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)"));
-    ui->signatureIn_VM->setPlaceholderText(tr("Enter PopularCoin signature"));
+    ui->addressIn_VM->setPlaceholderText(tr("Enter a ButterflyBits address"));
+    ui->signatureIn_VM->setPlaceholderText(tr("Enter ButterflyBits signature"));
 #endif
 
     GUIUtil::setupAddressWidget(ui->addressIn_SM, this);
@@ -126,7 +126,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     if (!ctx.isValid())
     {
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_SM->setText(tr("Wallet unlock was cancelled."));
+        ui->statusLabel_SM->setText(tr("Wallet unlock was canceled."));
         return;
     }
 
